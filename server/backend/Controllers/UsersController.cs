@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace backend
 {
@@ -29,6 +30,27 @@ namespace backend
             _config = config;
         }
 
+        [HttpPost("User/RefreshToken")]
+        public IActionResult RefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            var user = _context.User.Where(e => e.RefreshToken == refreshToken).FirstOrDefault();
+
+            if (user == null) { return Unauthorized(); }
+
+            else if (user.TokenExpires < DateTime.Now)
+            {
+                return Unauthorized("Token expired.");
+            }
+
+            string token = Generate(user);
+            var newRefreshToken = GenerateRefreshToken();
+            SetRefreshToken(newRefreshToken, user);
+
+            return Ok(token);
+        }
+
         [AllowAnonymous]
         [HttpPost("User/Login")]
         public IActionResult Login(UserLoginDTO userDTO)
@@ -38,6 +60,10 @@ namespace backend
             if (user == null) return NotFound();
             
             var token = Generate(user);
+
+            var refreshToken = GenerateRefreshToken();
+            SetRefreshToken(refreshToken, user);
+
             return Ok(token);
         }
 
@@ -151,6 +177,41 @@ namespace backend
             return (_context.User?.Any(e => e.ID == id)).GetValueOrDefault();
         }
 
+        private RefreshToken GenerateRefreshToken()
+        {
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expires = DateTime.Now.AddMinutes(10),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
+
+        private void SetRefreshToken(RefreshToken newRefreshToken, User _user)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            var user = _context.User.Find(_user.ID);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.RefreshToken = newRefreshToken.Token;
+            user.TokenCreated = newRefreshToken.Created;
+            user.TokenExpires = newRefreshToken.Expires;
+
+            _context.SaveChanges();
+        }
+
         private string Generate(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -176,7 +237,7 @@ namespace backend
               issuer: _config["Jwt:Issuer"],
               audience: _config["Jwt:Audience"],
               claims: claims,
-              expires: DateTime.Now.AddMinutes(15),
+              expires: DateTime.Now.AddMinutes(5),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

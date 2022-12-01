@@ -20,6 +20,12 @@ namespace backend.Models
 
         public string Password { get; set; } = default!;
 
+        public string? RefreshToken { get; set; } = default!;
+
+        public DateTime? TokenCreated { get; set; } = DateTime.Now;
+
+        public DateTime? TokenExpires { get; set; } = DateTime.Now.AddMinutes(2);
+
         [Required]
 		[MinLength(5)]
         [DataType(DataType.EmailAddress)]

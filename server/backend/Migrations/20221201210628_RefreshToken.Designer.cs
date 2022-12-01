@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace backend.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221023173956_Confirmation")]
-    partial class Confirmation
+    [Migration("20221201210628_RefreshToken")]
+    partial class RefreshToken
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,9 +135,18 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("TokenCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("TokenExpires")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("ID");
 

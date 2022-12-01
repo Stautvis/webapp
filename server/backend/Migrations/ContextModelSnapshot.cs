@@ -133,9 +133,18 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Roles")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("TokenCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("TokenExpires")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("ID");
 
