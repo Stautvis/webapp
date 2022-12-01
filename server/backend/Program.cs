@@ -59,6 +59,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 //    };
 //});
 
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;
@@ -74,6 +75,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
+
+await using var scope = app.Services.CreateAsyncScope();
+using var db = scope.ServiceProvider.GetService<Context>();
+await db.Database.MigrateAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
