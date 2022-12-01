@@ -62,6 +62,10 @@ namespace backend.Models
         public Gender Gender { get; set; }
 
         [Required]
+        [MinLength(5)]
+        public string Password { get; set; } = default!;
+
+        [Required]
         [DataType(DataType.Date)]
         public DateTime Birtday { get; set; }
     }
