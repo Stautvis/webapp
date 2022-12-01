@@ -39,7 +39,7 @@ namespace backend.Models
         [ForeignKey("CompanyID")]
 		public Company? Company { get; set; }
 
-        public List<Role> Roles { get; set; } = default!;
+        public List<Role> Roles { get; set; } = new List<Role>() { Role.User};
     }
 
     [AutoMap(typeof(User), ReverseMap = true)]
