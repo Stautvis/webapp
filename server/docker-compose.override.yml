@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  backend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  phpmyadmin:
+    environment:
+      - PMA_HOST=mariadb
+    ports:
+      - "81:80"
+  mariadb:
+    environment:
+      - MARIADB_ROOT_PASSWORD=docker@123
+      - MARIADB_DATABASE=main
+    ports:
+      - "3306:3306"

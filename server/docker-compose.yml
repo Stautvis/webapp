@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  backend:
+    image: ${DOCKER_REGISTRY-}backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+  phpmyadmin:
+    image: phpmyadmin
+  mariadb:
+    image: mariadb
