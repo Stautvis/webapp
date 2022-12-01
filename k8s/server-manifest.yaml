@@ -3,6 +3,22 @@ kind: Namespace
 metadata: 
   name: server
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: phpmyadmin
+  namespace: server
+spec:
+  containers:
+  - name: phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+    - containerPort: 80
+    env:
+    - name: PMA_HOST
+      value: database-service.server.svc.cluster.local
+
+---
 
 apiVersion: apps/v1
 kind: Deployment
@@ -23,7 +39,11 @@ spec:
       - name: backend
         image: stautvis/backend:latest
         ports:
-        - containerPort: 80
+          - containerPort: 80
+            protocol: TCP
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://+:80
       - name: mariadb
         image: mariadb:latest
         ports:
@@ -41,10 +61,24 @@ metadata:
   name: server-service
   namespace: server
 spec:
-  selector:
-    app.kubernetes.io/app: server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
   type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-service
+  namespace: server
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+  selector:
+    app: server
