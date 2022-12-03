@@ -57,7 +57,9 @@ namespace backend
         {
             var user = Authenticate(userDTO);
 
-            if (user == null) return NotFound();
+            if (user == null) return NotFound(
+                new UserLoginDTO() { EmailAddress = "User not found or invalid credentials!"}
+                );
             
             var token = Generate(user);
 
