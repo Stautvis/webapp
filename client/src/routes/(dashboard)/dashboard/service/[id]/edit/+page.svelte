@@ -1,1 +1,0 @@
-/dashboard/service/[id]/edit

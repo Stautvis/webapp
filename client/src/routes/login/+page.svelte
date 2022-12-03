@@ -1,11 +1,28 @@
 <script>
+	import Button from '../../lib/components/Button.svelte';
+	/** @type {import('./$types').ActionData} */
+	export let form;
 
-	import Input from "../../components/Input.svelte";
+	console.log(form);
 
+	import Form from '../../lib/components/Form.svelte';
+	import Input from '../../lib/components/Input.svelte';
 </script>
 
-<form method="post">
-  <Input id="emailAddress" value="admin@example.com" label="Your email address" type="email"/>
-  <Input id="password" value="stringst" label="Your password" type="password"/>
-  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
+<Form method="post">
+	<Input
+		id="emailAddress"
+		label="Your email address"
+		helper="This is helper"
+		errors={form?.errors?.emailAddress}
+		value={form?.data?.emailAddress}
+	/>
+	<Input
+		id="password"
+		label="Your password"
+		errors={form?.errors?.password}
+		value={form?.data?.password}
+	/>
+
+	<Button>Login</Button>
+</Form>
