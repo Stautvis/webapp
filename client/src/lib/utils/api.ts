@@ -1,13 +1,19 @@
+import type { Cookies } from '@sveltejs/kit';
 import { z, ZodError, type ZodIssue } from 'zod';
 
 const HOST = 'http://localhost:53124';
 
-export const post = async (url: string, body: Record<string, unknown> | null) => {
+export const post = async (
+	url: string,
+	body: Record<string, unknown> | null,
+	cookies: Cookies | undefined
+) => {
+	const Authorization = cookies === undefined ? '' : cookies.get('Bearer') || '';
 	const response = await fetch(HOST + url, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			Authorization: ``
+			Authorization
 		},
 		body: JSON.stringify(body)
 	});
