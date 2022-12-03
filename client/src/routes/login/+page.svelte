@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	import Button from '../../lib/components/Button.svelte';
 	import Form from '../../lib/components/Form.svelte';
 	import Input from '../../lib/components/Input.svelte';
+	import type { ActionData } from './$types';
 
-	/** @type {import('./$types').ActionData} */
-	export let form;
+	export let form : ActionData;
 </script>
 
 <Form method="post">
