@@ -16,8 +16,7 @@ export const actions: Actions = {
 
 		try {
 			const token = await post('/user/login', data, cookies);
-			cookies.set('Bearer', token as string);
-			console.log(cookies.get('Bearer'));
+			cookies.set('Bearer', ('Bearer ' + token) as string);
 		} catch (err) {
 			if (err instanceof ZodError) {
 				return invalid(400, {
