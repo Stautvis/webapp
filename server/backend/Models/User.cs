@@ -36,7 +36,7 @@ namespace backend.Models
 
 		[Required]
         [DataType(DataType.Date)]
-        public DateTime Birtday { get; set; }
+        public DateTime Birthday { get; set; }
 
 		public bool Deleted { get; set; } = false;
 
@@ -73,7 +73,7 @@ namespace backend.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Birtday { get; set; }
+        public DateTime Birthday { get; set; }
     }
 
     [AutoMap(typeof(User), ReverseMap = true)]
@@ -89,7 +89,7 @@ namespace backend.Models
 
         public Gender Gender { get; set; }
 
-        public DateTime Birtday { get; set; }
+        public DateTime Birthday { get; set; }
 
         public List<Role> Roles { get; set; } = default!;
     }
