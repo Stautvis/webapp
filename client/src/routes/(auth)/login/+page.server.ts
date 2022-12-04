@@ -1,7 +1,7 @@
 import { invalid, redirect, type Actions } from '@sveltejs/kit';
 import { z, ZodError } from 'zod';
-import { post } from '../../lib/utils/api';
-import { validateData } from '../../lib/utils/validateData';
+import { post } from '$lib/utils/api';
+import { validateData } from '$lib/utils/validateData';
 
 const loginScheme = z.object({
 	emailAddress: z.string({ required_error: 'Email address is required!' }).email(),
