@@ -25,7 +25,7 @@
 			<SidebarItem title="Add member" href="/dashboard/member/add" />
 		</SidebarItem>
 	</Sidebar>
-	<main class="p-10 px-32 flex-1">
+	<main class="p-5 px-10 lg:max-w-screen-2xl flex-1 mx-auto">
 		<slot />
 	</main>
 </div>
