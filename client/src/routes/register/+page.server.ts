@@ -37,7 +37,6 @@ export const actions: Actions = {
 	default: async ({ request }) => {
 		const { data, errors } = await validateData(request.formData(), registerScheme);
 		data.gender = parseInt(data.gender as string);
-		console.log(data);
 
 		if (Object.keys(errors).length > 0) return invalid(400, { data, errors });
 		try {
