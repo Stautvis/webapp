@@ -8,7 +8,7 @@ type GetRequest = (url: string, cookies: Cookies | undefined) => Promise<Request
 type PostRequest = (
 	url: string,
 	body: Record<string, unknown> | null,
-	cookies: Cookies | undefined
+	cookies?: Cookies
 ) => Promise<RequestReturn>;
 
 export class HttpRequestError extends Error {

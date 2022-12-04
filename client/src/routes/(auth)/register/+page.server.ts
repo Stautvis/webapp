@@ -1,7 +1,7 @@
+import { post } from '$lib/utils/api';
+import { validateData } from '$lib/utils/validateData';
 import { invalid, redirect, type Actions } from '@sveltejs/kit';
 import { z, ZodError } from 'zod';
-import { post } from '../../lib/utils/api';
-import { validateData } from '../../lib/utils/validateData';
 
 export const registerScheme = z
 	.object({
