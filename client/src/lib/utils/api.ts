@@ -3,6 +3,14 @@ import { z, ZodError, type ZodIssue } from 'zod';
 
 const HOST = 'http://localhost:53124';
 
+export class HttpRequestError extends Error {
+	constructor(public status: number, public message: string) {
+		super(message, { cause: status });
+		this.name = 'HttpRequestError';
+		this.stack = new Error().stack;
+	}
+}
+
 export const post = async (
 	url: string,
 	body: Record<string, unknown> | null,
@@ -19,9 +27,10 @@ export const post = async (
 	});
 	const { status } = response;
 	const data = await returnData(response);
+	console.log(status);
 	if (isStatusOk(status)) return data;
 	else {
-		throwZodError(data);
+		throwZodError(data, status);
 	}
 };
 
@@ -35,8 +44,11 @@ const returnData = async (response: Response) => {
 	return await response.text();
 };
 
-const throwZodError = (data: Record<string, unknown> | string) => {
-	if (typeof data == 'string') throw data;
+const throwZodError = (
+	data: Record<string, unknown> | string,
+	status: number | undefined = undefined
+) => {
+	if (typeof data == 'string') throw new HttpRequestError(status || 400, data);
 
 	const errors: ZodIssue[] = Object.keys(data)
 		.filter((key) => data[key] !== null)
