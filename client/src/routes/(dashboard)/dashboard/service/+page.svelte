@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ServiceListItem from '../../../../lib/components/Service/ServiceListItem.svelte';
+	import ServiceListItem from '$lib/components/Service/ServiceListItem.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -10,6 +10,6 @@
 </svelte:head>
 /dashboard/service
 
-{#each data.services as service}
-	<ServiceListItem {...service} />
+{#each data.services as item}
+	<ServiceListItem {item} />
 {/each}
