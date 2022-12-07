@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '../Button.svelte';
+	import Button from '../Button/Button.svelte';
 
 	export let item: App.IService;
 	const { id, title } = item;
@@ -19,6 +19,8 @@
 
 	<div class="space-x-2 flex">
 		<Button style="alternative" size="xs" href={`/dashboard/service/${id}/edit`}>Edit</Button>
-		<Button style="alternative" size="xs"><i class="bi bi-three-dots" /></Button>
+		<Button style="alternative" dropdown size="xs">
+			<span slot="title"><i class="bi bi-three-dots" /></span>
+		</Button>
 	</div>
 </div>
