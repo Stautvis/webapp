@@ -13,4 +13,8 @@ declare namespace App {
 		description: string;
 		image: string;
 	}
+
+	interface Layout {
+		size: 'sm' | 'xs' | 'base' | 'md' | 'lg';
+	}
 }

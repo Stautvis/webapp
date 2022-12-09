@@ -3,5 +3,25 @@
 @tailwind utilities;
 
 body {
-	@apply dark:bg-gray-900 dark:text-gray-400 text-gray-800;
+	@apply text-gray-900 dark:bg-gray-900 dark:text-gray-200;
+}
+
+.p-base {
+	@apply py-2.5 px-5 text-sm;
+}
+
+.p-sm {
+	@apply py-2 px-3 text-sm;
+}
+
+.p-xs {
+	@apply py-2 px-3 text-xs;
+}
+
+.p-md {
+	@apply py-3 px-5 text-base;
+}
+
+.p-lg {
+	@apply px-6 py-3.5 text-base;
 }
