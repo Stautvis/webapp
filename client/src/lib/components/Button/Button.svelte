@@ -27,4 +27,8 @@
 	.default {
 		@apply border-blue-700 bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
 	}
+
+	.link {
+		@apply border-0 hover:text-blue-500;
+	}
 </style>
