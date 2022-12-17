@@ -1,1 +1,1 @@
-export type ButtonStyle = 'alternative' | 'default' | 'link';
+export type ButtonStyle = 'alternative' | 'default' | 'link' | 'dropdown';

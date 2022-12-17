@@ -31,4 +31,8 @@
 	.link {
 		@apply border-0 hover:text-blue-500;
 	}
+
+	.dropdown {
+		@apply border-0 px-4 w-full justify-start rounded-none hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white;
+	}
 </style>
