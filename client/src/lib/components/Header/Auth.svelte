@@ -43,7 +43,7 @@
 				<Button style="dropdown" href="/dashboard">Dashboard</Button>
 				<Button style="dropdown" href="/settings">Settings</Button>
 			</div>
-			<div class="py-1">
+			<div>
 				<Button style="dropdown" href="/logout">Sign out</Button>
 			</div>
 		</DropdownMenu>

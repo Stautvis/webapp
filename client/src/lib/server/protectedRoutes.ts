@@ -1,4 +1,4 @@
-import { redirect, type Handle } from '@sveltejs/kit';
+import { error, redirect, type Handle } from '@sveltejs/kit';
 
 enum UserRoles {
 	ADMIN = 3,
@@ -15,8 +15,13 @@ export const protectedRoutes: Handle = async ({ event, resolve }) => {
 	const { user } = locals;
 	const { pathname } = url;
 
-	if (isProtected(pathname) && !hasUserRole(user, pathname)) {
-		throw redirect(303, `/login?redirect=${pathname}`);
+	if (isProtected(pathname)) {
+		if (user === undefined) {
+			throw redirect(303, `/login?redirect=${pathname}`);
+		}
+		if (!hasUserRole(user, pathname)) {
+			throw error(403);
+		}
 	}
 
 	const response = await resolve(event);
