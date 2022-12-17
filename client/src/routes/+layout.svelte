@@ -5,5 +5,14 @@
 	export let data: LayoutData;
 </script>
 
-<Header user={data.user} />
-<slot />
+<svelte:head>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+	/>
+</svelte:head>
+
+<div class="min-h-screen">
+	<Header user={data.user} />
+	<slot />
+</div>
