@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.Net.Http.Headers;
 
 namespace backend
 {
@@ -78,6 +79,22 @@ namespace backend
           }
             var users = await _context.User.ToListAsync();
             return _mapper.Map<List<UserGetDTO>>(users);
+        }
+
+        [Authorize]
+        [HttpGet("User/Logged")]
+        public async Task<ActionResult<UserGetDTO>> GetLoggedUser()
+        {
+            int id;
+            var isLogged = int.TryParse(User.Identity?.Name, out id);
+            if (!isLogged) return Unauthorized();
+
+            var user = await _context.User.FindAsync(id);
+            if (_context.User == null)
+            {
+                return NotFound();
+            }
+            return _mapper.Map<UserGetDTO>(user);
         }
 
         [HttpGet("User/{id}")]
@@ -196,8 +213,16 @@ namespace backend
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = newRefreshToken.Expires
+                Expires = newRefreshToken.Expires,
+                Domain = "http://localhost:5173",
+                Path = "/"
             };
+
+            var refreshToken = new CookieHeaderValue("refreshToken", newRefreshToken.Token);
+
+            Response.Headers.AccessControlAllowOrigin = "http://localhost";
+            Response.Headers.AccessControlAllowCredentials = "true";
+            Response.Headers.AccessControlAllowMethods = "GET, POST, PUT, PATCH, DELETE";
             Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
 
             var user = _context.User.Find(_user.ID);
