@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/Button/Button.svelte';
 	import Auth from '$lib/components/Header/Auth.svelte';
 
 	export let user: App.IUser | undefined;
