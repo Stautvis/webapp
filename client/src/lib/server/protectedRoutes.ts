@@ -36,7 +36,7 @@ const hasUserRole = (user: App.Locals['user'], pathname: string) => {
 const isProtected = (pathname: string) => {
 	if (pathname === '/') return false;
 	const keys = Object.keys(PROTECTED_ROUTES);
-	return keys.some((key) => pathname.startsWith(key));
+	return keys.some((key) => key.startsWith(pathname));
 };
 
 const getRoles = (pathname: string) => {
