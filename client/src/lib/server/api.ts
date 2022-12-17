@@ -1,9 +1,10 @@
 import { API_HOST } from '$env/static/private';
 import type { Cookies, RequestEvent } from '@sveltejs/kit';
+import setCookie from 'set-cookie-parser';
 import { ZodError, z, type ZodIssue } from 'zod';
 
-type BodyType = Record<string, unknown> | null;
-type Api = <T>(method: string, url: string, body: BodyType, cookies: Cookies) => Promise<T>;
+type BodyType = Record<string, unknown> | null | undefined;
+type Api = <T>(method: string, url: string, body: BodyType, cookies: RequestEvent) => Promise<T>;
 
 class HttpRequestError extends Error {
 	constructor(public status: number, public message: string) {
@@ -16,8 +17,9 @@ class HttpRequestError extends Error {
 const response = async (response: Response) => {
 	const { status } = response;
 	const data = await returnData(response);
-	if (isStatusOk(status)) return data;
-	else {
+	if (isStatusOk(status)) {
+		return data;
+	} else {
 		throwZodError(data, status);
 	}
 };
@@ -48,26 +50,36 @@ const throwZodError = (
 	throw new ZodError(errors);
 };
 
-const api: Api = async (method, url, body, cookies) => {
-	const res = await fetch(API_HOST + url, {
-		method: 'POST',
-		headers: configureHeaders(cookies),
+const api: Api = async (method, url, body, event) => {
+	const res = await event.fetch(API_HOST + url, {
+		method,
+		headers: configureHeaders(event.cookies),
 		body: JSON.stringify(body),
 		credentials: 'include'
 	});
+	configureCookies(event, res);
 	return response(res);
+};
+
+const configureCookies = (event: RequestEvent, response: Response) => {
+	const responseCookie = response.headers.get('Set-Cookie');
+	if (responseCookie !== null) {
+		const refreshToken = setCookie.parse(responseCookie, { map: true })['refreshToken'];
+		if (refreshToken) {
+			event.cookies.set('refreshToken', refreshToken.value, { expires: refreshToken.expires });
+		}
+	}
 };
 
 // Methods ----------------------------------------------------------------------------------------
 
 export default {
-	get: <T>(event: RequestEvent, url: string) => api<T>('GET', url, null, event.cookies),
-	post: (event: RequestEvent, url: string, body: BodyType) => api('POST', url, body, event.cookies),
-	patch: (event: RequestEvent, url: string, body: BodyType) =>
-		api('PATCH', url, body, event.cookies),
-	delete: (event: RequestEvent, url: string, body: BodyType) =>
-		api('DELETE', url, body, event.cookies),
-	put: (event: RequestEvent, url: string, body: BodyType) => api('PUT', url, body, event.cookies)
+	get: <T>(event: RequestEvent, url: string) => api<T>('GET', url, undefined, event),
+	post: <T>(event: RequestEvent, url: string, body: BodyType) => api<T>('POST', url, body, event),
+	patch: <T>(event: RequestEvent, url: string, body: BodyType) => <T>api('PATCH', url, body, event),
+	delete: <T>(event: RequestEvent, url: string, body: BodyType) =>
+		<T>api('DELETE', url, body, event),
+	put: <T>(event: RequestEvent, url: string, body: BodyType) => api<T>('PUT', url, body, event)
 };
 
 const isStatusOk = (status: number) => status > 199 && status < 300;
@@ -79,7 +91,8 @@ const configureHeaders = (cookies: Cookies | undefined) => {
 		'Content-Type': 'application/json',
 		'Access-Control-Allow-Credentials': 'true',
 		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
-		'Access-Control-Allow-Origin': '*',
-		Authorization
+		'Access-Control-Allow-Origin': API_HOST,
+		'Access-Control-Allow-Headers': 'Content-Type, *',
+		Authorization: Authorization
 	};
 };
