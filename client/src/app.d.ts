@@ -8,10 +8,21 @@ declare namespace App {
 		id: number;
 		firstName: string;
 		lastName: string;
+		roles: UserRoles[];
+	}
+
+	enum UserRoles {
+		ADMIN = 3,
+		OWNER = 2,
+		USER = 1
+	}
+
+	interface Layout {
+		size: 'xs' | 'sm' | 'default' | 'md' | 'lg';
 	}
 
 	interface Locals {
-		user: IUser;
+		user?: IUser;
 	}
 	// interface PageData {}
 	// interface Platform {}
