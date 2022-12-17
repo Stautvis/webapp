@@ -201,7 +201,7 @@ namespace backend
             var refreshToken = new RefreshToken
             {
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddMinutes(10),
+                Expires = DateTime.Now.AddMinutes(30),
                 Created = DateTime.Now
             };
 
@@ -264,7 +264,7 @@ namespace backend
               issuer: _config["Jwt:Issuer"],
               audience: _config["Jwt:Audience"],
               claims: claims,
-              expires: DateTime.Now.AddMinutes(5),
+              expires: DateTime.Now.AddMinutes(30),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
