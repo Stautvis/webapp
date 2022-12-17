@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
+		"@types/set-cookie-parser": "^2.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.13",
@@ -32,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"set-cookie-parser": "^2.5.1",
 		"zod": "^3.20.2",
 		"zod-form-data": "^1.2.4"
 	}
