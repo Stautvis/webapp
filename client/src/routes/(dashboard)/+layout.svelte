@@ -2,8 +2,6 @@
 	import SelectCompany from '$lib/components/Sidebar/SelectCompany.svelte';
 	import Sidebar from '$lib/components/Sidebar/Sidebar.svelte';
 	import SidebarItem from '$lib/components/Sidebar/SidebarItem.svelte';
-
-	import '../../app.css';
 </script>
 
 <div class="flex min-h-screen h-full">
