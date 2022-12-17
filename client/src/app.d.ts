@@ -8,6 +8,10 @@ declare namespace App {
 		id: number;
 		firstName: string;
 		lastName: string;
+		emailAddress: string;
+		gender: boolean;
+		profilePicture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
+		birthday: Date;
 		roles: UserRoles[];
 	}
 
