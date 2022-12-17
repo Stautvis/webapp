@@ -109,9 +109,9 @@ namespace backend.Models
 
     public enum Role
     {
-        User,
-        Admin,
-        CompanyOwner
+        User = 1,
+        Admin = 3,
+        CompanyOwner = 2,
 
     }
 
