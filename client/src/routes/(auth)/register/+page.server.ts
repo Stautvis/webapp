@@ -11,7 +11,6 @@ export const actions: Actions = {
 
 		if (Object.keys(errors).length > 0) return { data, errors };
 
-		console.log(data);
 		data.gender = parseInt(data.gender as string, 10);
 
 		try {
@@ -21,9 +20,7 @@ export const actions: Actions = {
 				password: data.password
 			});
 			cookies.set('auth', token);
-			console.log(token);
 		} catch (err) {
-			console.log(err);
 			if (err instanceof ZodError) {
 				return {
 					data,
