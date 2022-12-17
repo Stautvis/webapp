@@ -1,0 +1,23 @@
+<script lang="ts">
+	import Input from '$lib/components/Form/Input.svelte';
+	import type { ActionData } from './$types';
+	export let form: ActionData;
+</script>
+
+<Form method="post">
+	<Input
+		id="emailAddress"
+		label="Your email address"
+		errors={form?.errors?.emailAddress}
+		value={form?.data?.emailAddress || 'admin@example.com'}
+	/>
+	<Input
+		id="password"
+		type="password"
+		label="Your password"
+		errors={form?.errors?.password}
+		value={form?.data?.password || 'password'}
+	/>
+
+	<Button>Login</Button>
+</Form>
