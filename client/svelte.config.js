@@ -7,6 +7,7 @@ const config = {
 		adapter: adapter()
 	},
 	preprocess: [
+		// vitePreprocess(),
 		preprocess({
 			postcss: true
 		})

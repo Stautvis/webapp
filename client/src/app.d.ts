@@ -2,19 +2,17 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	// interface Locals {}
-	// interface PageData {}
 	// interface Error {}
+	interface Layout {
+		size: 'xs' | 'sm' | 'default' | 'md' | 'lg';
+	}
+	interface Locals {
+		user?: IUser;
+	}
+	// interface PageData {}
 	// interface Platform {}
 
-	interface IService {
+	interface IUser {
 		id: number;
-		title: string;
-		description: string;
-		image: string;
-	}
-
-	interface Layout {
-		size: 'sm' | 'xs' | 'base' | 'md' | 'lg';
 	}
 }

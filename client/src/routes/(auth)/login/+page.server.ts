@@ -1,4 +1,4 @@
-import { invalid, redirect, type Actions } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
 import { z, ZodError } from 'zod';
 import { post } from '$lib/utils/api';
 import { validateData } from '$lib/utils/validateData';
