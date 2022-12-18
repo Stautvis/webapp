@@ -223,7 +223,8 @@ namespace backend
             Response.Headers.AccessControlAllowOrigin = "http://localhost";
             Response.Headers.AccessControlAllowCredentials = "true";
             Response.Headers.AccessControlAllowMethods = "GET, POST, PUT, PATCH, DELETE";
-            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+            Response.Headers.SetCookie = $"refreshToken={newRefreshToken.Token}; Expires={newRefreshToken.Expires}; Domain=localhost; Path=/; HttpOnly";
+            //Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
 
             var user = _context.User.Find(_user.ID);
 

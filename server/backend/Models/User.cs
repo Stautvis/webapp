@@ -92,6 +92,8 @@ namespace backend.Models
         public DateTime Birthday { get; set; }
 
         public List<Role> Roles { get; set; } = default!;
+
+        public int CompanyID { get; set; }
     }
 
     public class UserLoginDTO
