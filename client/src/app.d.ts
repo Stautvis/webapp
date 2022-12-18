@@ -13,6 +13,13 @@ declare namespace App {
 		profilePicture: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
 		birthday: Date;
 		roles: UserRoles[];
+		companyID: number;
+	}
+
+	interface ICompany {
+		id: number;
+		title: string;
+		employees?: IUser[];
 	}
 
 	enum UserRoles {
@@ -27,6 +34,7 @@ declare namespace App {
 
 	interface Locals {
 		user?: IUser;
+		company?: ICompany;
 	}
 	// interface PageData {}
 	// interface Platform {}
