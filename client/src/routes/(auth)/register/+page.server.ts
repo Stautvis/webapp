@@ -19,7 +19,7 @@ export const actions: Actions = {
 				emailAddress: data.emailAddress,
 				password: data.password
 			});
-			cookies.set('auth', token);
+			cookies.set('auth', token, { path: '/' });
 		} catch (err) {
 			if (err instanceof ZodError) {
 				return {
