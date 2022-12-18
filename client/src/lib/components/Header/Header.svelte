@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from '$lib/components/Button/Button.svelte';
 	import Auth from '$lib/components/Header/Auth.svelte';
 
 	export let user: App.IUser | undefined;
@@ -58,7 +57,7 @@
 					>
 					<span class="sr-only">Toggle sidebar</span>
 				</button>
-				<a href="https://flowbite.com" class="flex mr-4">
+				<a href="/" class="flex mr-4">
 					<img
 						src="https://flowbite.s3.amazonaws.com/logo.svg"
 						class="mr-3 h-8"
