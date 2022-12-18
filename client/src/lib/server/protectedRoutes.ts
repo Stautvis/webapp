@@ -1,4 +1,5 @@
-import { error, redirect, type Handle } from '@sveltejs/kit';
+import { HttpRequestError } from '$lib/server/api';
+import { redirect, type RequestEvent } from '@sveltejs/kit';
 
 enum UserRoles {
 	ADMIN = 3,
@@ -10,33 +11,43 @@ const PROTECTED_ROUTES: { [k: string]: UserRoles[] } = {
 	'/dashboard': [UserRoles.ADMIN, UserRoles.OWNER]
 };
 
-export const protectedRoutes: Handle = async ({ event, resolve }) => {
+export const protectedRoutes = async (event: RequestEvent) => {
 	const { locals, url } = event;
-	const { user } = locals;
 	const { pathname } = url;
 
 	if (isProtected(pathname)) {
-		if (user === undefined) {
+		if (event.locals.user === undefined) {
 			throw redirect(303, `/login?redirect=${pathname}`);
 		}
-		if (!hasUserRole(user, pathname)) {
-			throw error(403);
+		if (!hasUserRole(locals.user, pathname)) {
+			throw new HttpRequestError(403, 'Permission denied!');
 		}
 	}
-
-	const response = await resolve(event);
-	return response;
 };
 
 const hasUserRole = (user: App.Locals['user'], pathname: string) => {
 	const roles = getRoles(pathname);
-	return roles.some((role) => user?.roles.includes(role));
+	console.log('USER ROLES');
+	const isAllowed = roles.some((role) => {
+		const include = user?.roles.includes(role);
+		console.log(role, include);
+		return include;
+	});
+	console.log(isAllowed);
+	return isAllowed;
 };
 
 const isProtected = (pathname: string) => {
 	if (pathname === '/') return false;
+	console.log('ROUTES');
 	const keys = Object.keys(PROTECTED_ROUTES);
-	return keys.some((key) => key.startsWith(pathname));
+	const isAllowed = keys.some((key) => {
+		const include = pathname.includes(key);
+		console.log(include, pathname, key);
+		return include;
+	});
+	console.log(isAllowed);
+	return isAllowed;
 };
 
 const getRoles = (pathname: string) => {

@@ -1,12 +1,12 @@
 import { API_HOST } from '$env/static/private';
-import type { Cookies, RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 import setCookie from 'set-cookie-parser';
 import { ZodError, z, type ZodIssue } from 'zod';
 
 type BodyType = Record<string, unknown> | null | undefined;
 type Api = <T>(method: string, url: string, body: BodyType, cookies: RequestEvent) => Promise<T>;
 
-class HttpRequestError extends Error {
+export class HttpRequestError extends Error {
 	constructor(public status: number, public message: string) {
 		super(message, { cause: status });
 		this.name = 'HttpRequestError';
@@ -51,22 +51,26 @@ const throwZodError = (
 };
 
 const api: Api = async (method, url, body, event) => {
-	const res = await event.fetch(API_HOST + url, {
+	const res = await fetch(API_HOST + url, {
 		method,
-		headers: configureHeaders(event.cookies),
+		headers: configureHeaders(event, url),
 		body: JSON.stringify(body),
 		credentials: 'include'
 	});
-	configureCookies(event, res);
+	if (res.url.includes('refreshToken') || res.url.includes('login')) {
+		await configureCookies(event, res);
+	}
 	return response(res);
 };
 
-const configureCookies = (event: RequestEvent, response: Response) => {
+const configureCookies = async (event: RequestEvent, response: Response) => {
 	const responseCookie = response.headers.get('Set-Cookie');
 	if (responseCookie !== null) {
 		const refreshToken = setCookie.parse(responseCookie, { map: true })['refreshToken'];
 		if (refreshToken) {
-			event.cookies.set('refreshToken', refreshToken.value, { expires: refreshToken.expires });
+			event.cookies.set('refreshToken', refreshToken.value);
+
+			event.cookies.set('auth', await response.text(), { path: '/' });
 		}
 	}
 };
@@ -84,7 +88,8 @@ export default {
 
 const isStatusOk = (status: number) => status > 199 && status < 300;
 
-const configureHeaders = (cookies: Cookies | undefined) => {
+const configureHeaders = (event: RequestEvent, url: string) => {
+	const { cookies } = event;
 	const Authorization = cookies === undefined ? '' : `Bearer ${cookies.get('auth')}` || '';
 
 	return {
@@ -93,6 +98,9 @@ const configureHeaders = (cookies: Cookies | undefined) => {
 		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH',
 		'Access-Control-Allow-Origin': API_HOST,
 		'Access-Control-Allow-Headers': 'Content-Type, *',
+		// 'Set-Cookie': `"refreshToken=${cookies.get(
+		// 	'refreshToken'
+		// )}; Domain=localhost; Path=/; HttpOnly`,
 		Authorization: Authorization
 	};
 };
