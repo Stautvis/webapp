@@ -68,7 +68,7 @@ const configureCookies = async (event: RequestEvent, response: Response) => {
 	if (responseCookie !== null) {
 		const refreshToken = setCookie.parse(responseCookie, { map: true })['refreshToken'];
 		if (refreshToken) {
-			event.cookies.set('refreshToken', refreshToken.value);
+			event.cookies.set('refreshToken', refreshToken.value, { path: '/' });
 
 			event.cookies.set('auth', await response.text(), { path: '/' });
 		}

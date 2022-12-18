@@ -5,13 +5,17 @@
 	export let click: () => void = () => {};
 	export let style: ButtonStyle = 'default';
 	export let href: string = '';
+	export let icon: string = '';
 	export let size: App.Layout['size'] = 'default';
 </script>
 
 {#if href === ''}
-	<button {type} on:click={click} class={`${style} p-${size}`}><slot /></button>
+	<button {type} on:click={click} class={`${style} p-${size}`}>
+		<i class={`bi ${icon}`} />
+		<slot />
+	</button>
 {:else}
-	<a {href} class={`${style} p-${size}`}><slot /></a>
+	<a {href} class={`${style} p-${size}`}> <i class={`bi ${icon}`} /><slot /></a>
 {/if}
 
 <style lang="postcss">

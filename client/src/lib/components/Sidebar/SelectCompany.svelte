@@ -1,3 +1,7 @@
+<script lang="ts">
+	export let company: App.ICompany | undefined;
+</script>
+
 <div class="hover:bg-gray-700 rounded-lg p-2 flex items-center space-x-2 flex-1">
 	<div class="min-w-fit">
 		<img
@@ -7,9 +11,11 @@
 		/>
 	</div>
 
-	<div class="w-64 inline-block">
-		<span class="font-bold text-gray-100 tracking-wide truncate text-lg block">Company 1</span>
-		<span>Short description</span>
+	<div class="w-64 inline-block ">
+		<span class="font-bold text-gray-100 tracking-wide truncate text-lg block"
+			>{company?.title}</span
+		>
+		<span class="truncate">{company?.shortDescription}</span>
 	</div>
 
 	<i class="bi bi-chevron-expand hover:bg-gray-600 rounded-lg px-1" />

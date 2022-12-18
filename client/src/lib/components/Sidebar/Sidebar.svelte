@@ -1,5 +1,5 @@
 <aside
-	class="w-64 bg-gray-50 dark:bg-gray-800/50 overflow-y-auto py-4 px-3 pl-1 max-h-screen sticky"
+	class="w-64 bg-gray-50 dark:bg-gray-800/50 overflow-y-auto py-4 px-3 pl-1 max-h-full bg-fixed sticky"
 >
 	<slot />
 
@@ -36,7 +36,7 @@
 		</p>
 		<a
 			class="text-sm text-blue-900 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-			href="#">Turn new navigation off</a
+			href="/">Turn new navigation off</a
 		>
 	</div>
 </aside>

@@ -16,10 +16,22 @@ declare namespace App {
 		companyID: number;
 	}
 
+	interface IService {
+		id: number;
+		title: string;
+		company: ICompany;
+		image: string;
+		description: string;
+		shortDescription: string;
+	}
+
 	interface ICompany {
 		id: number;
 		title: string;
 		employees?: IUser[];
+		image: string;
+		description: string;
+		shortDescription: string;
 	}
 
 	enum UserRoles {

@@ -1,6 +1,14 @@
-import type { Load } from '@sveltejs/kit';
+import api from '$lib/server/api';
+import type { ServerLoad } from '@sveltejs/kit';
 
-export const load: Load = async ({ parent }) => {
+export const load: ServerLoad = async (event) => {
+	const { parent, locals } = event;
 	await parent();
-	return { services: [] };
+	const services = (await api.get(
+		event,
+		`/company/${locals.user?.companyID}/service`
+	)) as App.IService[];
+	return {
+		services
+	};
 };
