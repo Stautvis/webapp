@@ -17,6 +17,16 @@ public class Service : ISoftDelete, IConfirmable
     [MinLength(3)]
     public string Title { get; set; } = default!;
 
+    [Required]
+    public string Description { get; set; } = default!;
+
+    [Required]
+    public string ShortDescription { get; set; } = default!;
+
+    [Required]
+    [DataType(DataType.ImageUrl)]
+    public string Image { get; set; } = default!;
+
     public int CompanyID { get; set; }
     [ForeignKey("CompanyID")]
     [Required]
@@ -33,6 +43,12 @@ public class ServiceGetDTO
 
     public string Title { get; set; } = default!;
 
+    public string Description { get; set; } = default!;
+
+    public string ShortDescription { get; set; } = default!;
+
+    public string Image { get; set; } = default!;
+
     public CompanyGetDTO Company { get; set; } = default!;
 }
 
@@ -41,4 +57,14 @@ public class ServicePostDTO
 {
     [Required]
     public string Title { get; set; } = default!;
+
+    [Required]
+    public string Description { get; set; } = default!;
+
+    [Required]
+    public string ShortDescription { get; set; } = default!;
+
+    [Required]
+    [DataType(DataType.ImageUrl)]
+    public string Image { get; set; } = default!;
 }

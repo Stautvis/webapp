@@ -95,6 +95,10 @@ namespace backend
             if (!user.Roles.Contains(Role.Admin) && user.Company?.ID != service.CompanyID) return Forbid();
 
             service.Title = serviceDTO.Title;
+            service.Description = serviceDTO.Description;
+            service.ShortDescription = serviceDTO.ShortDescription;
+            service.Image = serviceDTO.Image;
+
 
             _context.Entry(service).State = EntityState.Modified;
 
