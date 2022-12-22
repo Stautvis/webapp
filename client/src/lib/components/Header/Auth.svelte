@@ -3,8 +3,8 @@
 	import Button from '$lib/components/Button/Button.svelte';
 	import Dropdown from '$lib/components/Dropdown/Dropdown.svelte';
 	import DropdownMenu from '$lib/components/Dropdown/DropdownMenu.svelte';
+	import { UserRoles } from '$lib/enums/UserRoles';
 	export let user: App.IUser | undefined;
-	$: user = user;
 </script>
 
 {#if user !== undefined}
@@ -40,7 +40,12 @@
 				</div>
 			</Button>
 			<div>
-				<Button style="dropdown" href="/dashboard">Dashboard</Button>
+				{#if user.roles.includes(UserRoles.ADMIN) || user.roles.includes(UserRoles.OWNER)}
+					<Button style="dropdown" href="/dashboard">Dashboard</Button>
+				{/if}
+				{#if user.companyID == 0}
+					<Button style="dropdown" href="/register/company">Create company</Button>
+				{/if}
 				<Button style="dropdown" href="/settings">Settings</Button>
 			</div>
 			<div>

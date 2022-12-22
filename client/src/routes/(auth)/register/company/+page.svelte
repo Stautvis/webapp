@@ -8,31 +8,36 @@
 	export let form: ActionData;
 </script>
 
-<Title name="Add new service" />
+<Title name="Create new company" />
 
 <Form>
-	<Input id="title" label="Service title" value={form?.data?.title} errors={form?.errors?.title} />
+	<Input
+		id="title"
+		size="sm"
+		label="Company title"
+		value={form?.data?.title}
+		errors={form?.errors.title}
+	/>
 
 	<Input
 		id="shortDescription"
-		label="Service short description"
+		label="Company short description"
 		type="textarea"
+		size="sm"
 		value={form?.data?.shortDescription}
-		errors={form?.errors?.shortDescription}
+		errors={form?.errors.shortDescription}
 	/>
 
 	<Input
 		id="description"
-		label="Service description"
+		label="Company description"
 		type="textarea"
+		size="sm"
 		value={form?.data?.description}
-		errors={form?.errors?.description}
+		errors={form?.errors.description}
 	/>
 
-	<Input id="image" label="Service image" value={form?.data?.image} errors={form?.errors?.image} />
+	<Input id="image" label="Company image" value={form?.data?.image} errors={form?.errors.image} />
 
-	<div>
-		<Button>Create service</Button>
-		<Button style="alternative" href="/dashboard/service">Cancel</Button>
-	</div>
+	<Button size="xs">Save changes</Button>
 </Form>

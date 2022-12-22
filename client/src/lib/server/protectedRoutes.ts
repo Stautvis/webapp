@@ -1,11 +1,6 @@
+import { UserRoles } from '$lib/enums/UserRoles';
 import { HttpRequestError } from '$lib/server/api';
-import { type RequestEvent } from '@sveltejs/kit';
-
-enum UserRoles {
-	ADMIN = 3,
-	OWNER = 2,
-	USER = 1
-}
+import type { RequestEvent } from '@sveltejs/kit';
 
 const PROTECTED_ROUTES: { [k: string]: UserRoles[] } = {
 	'/dashboard': [UserRoles.ADMIN, UserRoles.OWNER],

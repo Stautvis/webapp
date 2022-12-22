@@ -102,6 +102,10 @@ namespace backend.Controllers
 
 
             company.Title = companyDTO.Title;
+            company.Description = companyDTO.Description;
+            company.Image = companyDTO.Image;
+            company.ShortDescription = companyDTO.ShortDescription;
+
             _context.Entry(company).State = EntityState.Modified;
 
             try

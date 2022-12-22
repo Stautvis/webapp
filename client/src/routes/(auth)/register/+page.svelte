@@ -3,11 +3,14 @@
 	import Button from '$lib/components/Button/Button.svelte';
 	import Form from '$lib/components/Form/Form.svelte';
 	import Input from '$lib/components/Form/Input.svelte';
+	import Title from '$lib/components/Title/Title.svelte';
 
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
 </script>
+
+<Title name="Sign Up">Enter required field to register new user.</Title>
 
 <Form method="post">
 	<Input
@@ -35,7 +38,7 @@
 		id="gender"
 		label="Gender"
 		errors={form?.errors?.gender}
-		value={form?.data?.gender || 0}
+		value={form?.data?.gender || -1}
 		type="select"
 	>
 		<option value="-1" />

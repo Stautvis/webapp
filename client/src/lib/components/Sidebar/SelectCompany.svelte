@@ -2,7 +2,7 @@
 	export let company: App.ICompany | undefined;
 </script>
 
-<div class="hover:bg-gray-700 rounded-lg p-2 flex items-center space-x-2 flex-1">
+<div class="hover:bg-gray-700 rounded-lg p-2 flex max-h-fit items-center space-x-2 flex-1">
 	<div class="min-w-fit">
 		<img
 			src="https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"

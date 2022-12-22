@@ -3,6 +3,7 @@
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	export let data: LayoutData;
+	console.log(data.user);
 </script>
 
 <svelte:head>

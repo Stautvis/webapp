@@ -6,6 +6,10 @@ body {
 	@apply text-gray-900 dark:bg-gray-900 dark:text-gray-200 bg-fixed;
 }
 
+h2 {
+	@apply text-4xl font-extrabold dark:text-white;
+}
+
 .p-default {
 	@apply py-2.5 px-5 text-sm;
 }

@@ -9,6 +9,7 @@
 	export let label: string = '';
 	export let helper: string = '';
 	export let errors: string[] = [];
+	export let disabled: boolean = false;
 
 	let wasFocued: boolean = false;
 
@@ -35,6 +36,7 @@
 			{id}
 			{placeholder}
 			{value}
+			{disabled}
 			name={id}
 			on:focus={onFocus}
 			class={`p-${size} base ${isErrors && !wasFocued ? 'input-error' : ''}`}
@@ -48,6 +50,7 @@
 			{id}
 			{placeholder}
 			{value}
+			{disabled}
 			name={id}
 			on:focus={onFocus}
 			step="0.01"
@@ -79,6 +82,12 @@
 
 	input[type='date'] {
 		@apply my-auto p-1.5;
+	}
+
+	input:disabled,
+	select:disabled,
+	textarea:disabled {
+		@apply bg-gray-100 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block w-full cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500;
 	}
 
 	.input-error {
