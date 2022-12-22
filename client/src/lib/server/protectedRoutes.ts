@@ -4,7 +4,8 @@ import type { RequestEvent } from '@sveltejs/kit';
 
 const PROTECTED_ROUTES: { [k: string]: UserRoles[] } = {
 	'/dashboard': [UserRoles.ADMIN, UserRoles.OWNER],
-	'/settings': [UserRoles.USER]
+	'/settings': [UserRoles.USER],
+	'/register/company': [UserRoles.USER, UserRoles.ADMIN]
 };
 
 export const protectedRoutes = async (event: RequestEvent) => {

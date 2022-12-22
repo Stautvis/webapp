@@ -25,7 +25,6 @@ export const actions: Actions = {
 				`/company/${locals.user?.companyID}/service/${params.serviceId}`,
 				data
 			);
-			console.log(res);
 		} catch (err) {
 			if (err instanceof ZodError) {
 				return {
