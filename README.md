@@ -178,4 +178,63 @@ Klientas galės:
   - `companyId` - įmonės ID.
   - `serviceId` - paslaugos ID.
 
+<!-------------------------------->
+
+### `GET /company/{companyId}/service/{serviceId}/review` - gražina visus sukurtas atsiliepimus.
+
+- Atsakymo kodai: 200, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+
+<!-------------------------------->
+
+### `POST /company/{companyId}/service/{serviceId}/review/{reviewId}` - sukuria naują atsiliepimą (tik registruotiems vartotojams)
+
+- Atsakymo kodai: 201, 401, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+  - `reviewId` - atsiliepimo ID.
+
+  | Name    | Type   | Example       |
+  | ------- | ------ | ------------- |
+  | message | string | Gera paslauga |
+  | rating  | int    | 5             |
+
+    <!-------------------------------->
+
+### `PUT /company/{companyId}/service/{serviceId}/review/{reviewId}` - atnaujina atsiliepimą (tik autoriui arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+  - `reviewId` - atsiliepimo ID.
+
+  | Name    | Type   | Example       |
+  | ------- | ------ | ------------- |
+  | message | string | Gera paslauga |
+  | rating  | int    | 5             |
+
+<!-------------------------------->
+
+### `DELETE /company/{companyId}/service/{serviceId}/review/{reviewId}` - ištrina atsiliepimą (tik autoriui arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+  - `reviewId` - atsiliepimo ID.
+
 ## Išvados
+
+Nors ne visi pradžioje išsikelti tikslai įvykdyti, vis dėl to pavyko įgyvendinti paprastą internetinį puslapį, kuriame galima sukurti vartotojus, prisijungti, valdyti savo sukurtas įmonęs ir paslaugas. Tai pat, susipažinome su JWT vartotojų autentifikavimo įrankiu.
