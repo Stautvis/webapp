@@ -53,10 +53,129 @@ Klientas galės:
 
 ## API specifikacija
 
-### `GET /company` - gražina visas sukurtas kompanijas.
+<!-------------------------------->
 
-- Resurso informacija
+### `GET /company` - gražina visas sukurtas įmones.
 
-- Parametrai
+- Atsakymo kodai: 200, 404, 500
+
+- Parametrai: nėra
+
+<!-------------------------------->
+
+### `GET /company/{companyId}` - gražina konkrečia sukurtas įmonę.
+
+- Atsakymo kodai: 200, 404, 500
+
+- Parametrai:
+  - `companyId` - įmonės ID.
+
+<!-------------------------------->
+
+### `POST /company` - sukuria naują įmonę (tik registruotiems vartotojams)
+
+- Atsakymo kodai: 201, 401, 404, 500
+
+- Parametrai:
+
+  | Name             | Type   | Example                                    |
+  | ---------------- | ------ | ------------------------------------------ |
+  | title            | string | Boulingas                                  |
+  | image            | string | http://pexels-photo-6605345.jpeg           |
+  | shortDescription | string | Tai yra pavyzdinė boulingo įmonė.          |
+  | description      | string | Tai yra ilgesnis aprašymas apie šią įmonę. |
+
+  <!-------------------------------->
+
+### `PUT /company/{companyId}` - atnaujina įmonę (tik įmonės valdytojams arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+
+  | Name             | Type   | Example                                    |
+  | ---------------- | ------ | ------------------------------------------ |
+  | title            | string | Boulingas                                  |
+  | image            | string | http://pexels-photo-6605345.jpeg           |
+  | shortDescription | string | Tai yra pavyzdinė boulingo įmonė.          |
+  | description      | string | Tai yra ilgesnis aprašymas apie šią įmonę. |
+
+<!-------------------------------->
+
+### `DELETE /company/{companyId}` - ištrina įmonę (tik įmonės valdytojams arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+
+<!-------------------------------->
+
+### `GET /company/{companyId}/service` - gražina visas sukurtas paslaugas.
+
+- Atsakymo kodai: 200, 404, 500
+
+- Parametrai:
+  - `companyId` - įmonės ID.
+
+<!-------------------------------->
+
+### `GET /company/{companyId}/service/{serviceId}` - gražina konkrečia sukurtą paslaugą.
+
+- Atsakymo kodai: 200, 404, 500
+
+- Parametrai:
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+
+<!-------------------------------->
+
+### `POST /company/{companyId}/service/{serviceId}` - sukuria naują paslaugą (tik įmonės darbuotojams)
+
+- Atsakymo kodai: 201, 401, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+
+  | Name             | Type   | Example                                       |
+  | ---------------- | ------ | --------------------------------------------- |
+  | title            | string | Boulingas                                     |
+  | image            | string | http://pexels-photo-6605345.jpeg              |
+  | shortDescription | string | Tai yra pavyzdinė boulingo įmonė.             |
+  | description      | string | Tai yra ilgesnis aprašymas apie šią paslaugą. |
+
+  <!-------------------------------->
+
+### `PUT /company/{companyId}/service/{serviceId}` - atnaujina paslaugą (tik įmonės valdytojams arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
+
+  | Name             | Type   | Example                                       |
+  | ---------------- | ------ | --------------------------------------------- |
+  | title            | string | Boulingas                                     |
+  | image            | string | http://pexels-photo-6605345.jpeg              |
+  | shortDescription | string | Tai yra pavyzdinė boulingo įmonė.             |
+  | description      | string | Tai yra ilgesnis aprašymas apie šią paslaugą. |
+
+<!-------------------------------->
+
+### `DELETE /company/{companyId}/service/{serviceId}` - ištrina paslaugą (tik įmonės valdytojams arba sistemos administratoriams)
+
+- Atsakymo kodai: 200, 401, 403, 404, 500
+
+- Parametrai:
+
+  - `companyId` - įmonės ID.
+  - `serviceId` - paslaugos ID.
 
 ## Išvados
