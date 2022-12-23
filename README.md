@@ -51,6 +51,12 @@ Klientas galės:
 
 ## Naudotojo sąsajos projektas
 
+<img width="1280" alt="Screenshot 2022-12-23 at 19 27 40" src="https://user-images.githubusercontent.com/23562379/209379783-edde8df0-6613-407f-9c05-8382af58ff76.png">
+<img width="1280" alt="Screenshot 2022-12-23 at 19 27 54" src="https://user-images.githubusercontent.com/23562379/209379825-a37160f1-6981-4823-88cd-abec319baffd.png">
+<img width="1280" alt="Screenshot 2022-12-23 at 19 39 23" src="https://user-images.githubusercontent.com/23562379/209379849-fbd0baca-8f62-48b3-bd88-a6f48a285062.png">
+<img width="1280" alt="Screenshot 2022-12-23 at 19 39 43" src="https://user-images.githubusercontent.com/23562379/209379874-81d48c5d-b4be-4e83-9d4e-ba910f5bf21d.png">
+
+
 ## API specifikacija
 
 <!-------------------------------->
