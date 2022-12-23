@@ -48,3 +48,15 @@ Klientas galės:
 - Informacijos saugojimui bus naudojama `MariaDB` reliacinė duomenų bazė.
 - Serverio bendravimui su duomenų baze bus naudojamas `Entitiy Framework` karkasas.
 - Žinučių apsikeitimui tarp serverio ir kliento dalies bus naudojama `REST API`
+
+## Naudotojo sąsajos projektas
+
+## API specifikacija
+
+### `GET /company` - gražina visas sukurtas kompanijas.
+
+- Resurso informacija
+
+- Parametrai
+
+## Išvados
